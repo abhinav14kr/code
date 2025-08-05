@@ -17,3 +17,15 @@ data = {
 
 df = pd.DataFrame(data)
 df['Date'] = pd.to_datetime(df['Date'])
+
+# Function to compute 7-day rolling revenue per product
+def compute_rolling(group):
+    group = group.sort_values('Date')
+    group['Rolling_7_Day_Revenue'] = group.set_index('Date')['Revenue'].rolling('7D').sum().values
+    return group
+
+# Apply per-product group
+result = df.groupby('Product', group_keys=False).apply(compute_rolling).reset_index(drop=True)
+
+# Display result
+print(result)
