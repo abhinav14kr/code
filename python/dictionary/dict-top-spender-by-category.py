@@ -37,16 +37,23 @@ for category, customer_spend in groups.items():
 
 print(results)
 
+
+
+
+
+
+
+
+
+
 # with defaultdict for cleaner code
 
 from collections import defaultdict
 
-# Create a nested defaultdict
 groups = defaultdict(lambda: defaultdict(int))
 
 for customer, item, category, price in purchases:
     groups[category][customer] += price
-
 
 results = {}
 
