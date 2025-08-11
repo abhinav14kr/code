@@ -26,6 +26,7 @@ print(groups)
 average_spend = {}
 
 average_spend = {}
+
 for customer in groups:
     for category in groups[customer]:
         prices = groups[customer][category]
