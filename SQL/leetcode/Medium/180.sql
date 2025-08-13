@@ -46,3 +46,18 @@ INNER JOIN Logs as C on B.id + 1 = C.id
 WHERE A.num = B.num 
 AND B.num = C.num
 ; 
+
+
+-- alternate solution using LEAD and LAG 
+
+WITH FIRST_TABLE AS (
+  SELECT
+    id,
+    num,
+    LAG(num)  OVER (ORDER BY id)  AS prev_num,
+    LEAD(num) OVER (ORDER BY id)  AS next_num
+  FROM Logs
+)
+SELECT DISTINCT num AS ConsecutiveNums
+FROM FIRST_TABLE
+WHERE num = prev_num AND num = next_num;
