@@ -20,15 +20,14 @@ SOLUTION:
 
 
 # Write your MySQL query statement below
-WITH FIRST_CTE AS (SELECT SUM(weight) OVER(ORDER BY turn) as total_weight, person_name
-FROM Queue
-GROUP BY 2
-ORDER BY turn asc, weight DESC
+WITH FIRST_CTE AS (
+    SELECT SUM(weight) OVER(ORDER BY turn) as total_weight, person_name
+    FROM Queue
 )
 
-SELECT person_name FROM FIRST_CTE
+SELECT person_name 
+FROM FIRST_CTE 
 WHERE total_weight <= 1000
 ORDER BY total_weight DESC 
 LIMIT 1; 
-
 
