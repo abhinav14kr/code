@@ -45,4 +45,32 @@ on c.Category = s.Category
 GROUP BY c.Category; 
 
 
- 
+ -- alternate solution suggested by GPT 5 
+
+ -- Write your MySQL query statement below
+WITH FIRST_CTE AS (
+  SELECT 
+    account_id, 
+    CASE 
+      WHEN income < 20000 THEN 'Low Salary'
+      WHEN income BETWEEN 20000 AND 50000 THEN 'Average Salary'
+      ELSE 'High Salary'
+    END AS category 
+  FROM Accounts
+),
+CATEGORIES AS (
+  SELECT 1 AS ord, 'Low Salary' AS category
+  UNION ALL SELECT 2, 'Average Salary'
+  UNION ALL SELECT 3, 'High Salary'
+),
+COUNTS AS (
+  SELECT category, COUNT(*) AS accounts_count
+  FROM FIRST_CTE
+  GROUP BY category
+)
+SELECT 
+  c.category,
+  COALESCE(cnt.accounts_count, 0) AS accounts_count
+FROM CATEGORIES c
+LEFT JOIN COUNTS cnt USING (category)
+ORDER BY c.ord;
