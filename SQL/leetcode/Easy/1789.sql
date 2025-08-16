@@ -31,3 +31,20 @@ JOIN FIRST_TABLE f ON e.employee_id = f.employee_id
 WHERE 
     (f.counts > 1 AND e.primary_flag = 'Y') 
     OR (f.counts = 1)                       
+
+
+     -- alternate way using window function 
+
+    
+    WITH ranked AS (
+  SELECT
+    e.*,
+    ROW_NUMBER() OVER (
+      PARTITION BY employee_id
+      ORDER BY (primary_flag = 'Y') DESC
+    ) AS rn
+  FROM Employee e
+)
+SELECT employee_id, department_id
+FROM ranked
+WHERE rn = 1;
