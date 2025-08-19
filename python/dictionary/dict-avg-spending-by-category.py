@@ -31,4 +31,16 @@ for category, average in average_spending.items():
     print(f'Category: {category} -> Average Spending: {average:.2f}')
 
 
-#
+# with default dict this is how it works
+from collections import defaultdict
+
+# use defaultdict(list) to not check for existence
+groups = defaultdict(list)
+
+for customer, item, category, price in purchases:
+    groups[category].append(price)
+
+average_spending = {category: sum(prices) / len(prices) for category, prices in groups.items()}
+
+for category, average in average_spending.items():
+    print(f"Category: {category} -> Average Spending: {average:.2f}")
