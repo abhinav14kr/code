@@ -24,6 +24,6 @@ top_5 = []
 for word, count in word_count.items():
     top_5.append((word, count))
 
-top_5 = sorted(top_5, key = lambda x:x[1], reverse = True)[:5]
+top_5 = sorted(top_5, key = lambda x:x[1], reverse = True)[:3]
 
 print(top_5)
