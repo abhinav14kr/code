@@ -1,0 +1,5 @@
+Customer: Alice, Item: Laptop, Price: 1200
+Customer: Bob, Item: Mouse, Price: 25
+Customer: Alice, Item: Keyboard, Price: 70
+Customer: Charlie, Item: Monitor, Price: 300
+Customer: Bob, Item: Tablet, Price: 500
