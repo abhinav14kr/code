@@ -30,7 +30,7 @@ with open('purchases.txt', 'r') as f:
             groups[customer] = 0.0
         groups[customer] += price
 
-for customer, total in groups.items(): 
+for customer, total in groups.items():
     print(f'{customer} -> {total}')
 
 
