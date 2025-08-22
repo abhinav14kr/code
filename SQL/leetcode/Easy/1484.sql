@@ -1,0 +1,30 @@
+'''
+1484. Group Sold Products By The Date
+Table Activities:
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| sell_date   | date    |
+| product     | varchar |
++-------------+---------+
+There is no primary key (column with unique values) for this table. It may contain duplicates.
+Each row of this table contains the product name and the date it was sold in a market.
+ 
+Write a solution to find for each date the number of different products sold and their names.
+The sold products names for each date should be sorted lexicographically.
+Return the result table ordered by sell_date.
+The result format is in the following example.
+
+'''
+
+WITH FIRST_CTE AS (
+    SELECT sell_date, count(DISTINCT product) as num_sold, product
+    FROM Activities 
+    GROUP BY 1,3
+    ORDER BY 1
+)
+
+SELECT sell_date, sum(num_sold) as num_sold, GROUP_CONCAT(product ORDER BY product SEPARATOR ',') AS products
+FROM FIRST_CTE
+GROUP BY 1;
