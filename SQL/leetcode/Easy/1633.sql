@@ -35,7 +35,6 @@ WITH total AS (
 SELECT COUNT(*) AS n FROM Users
 )
 
-
 SELECT
 r.contest_id,
 ROUND(100.0 * COUNT(*) / t.n, 2) AS percentage
