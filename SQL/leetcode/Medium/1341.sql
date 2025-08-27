@@ -27,33 +27,27 @@ Find the movie name with the highest average rating in February 2020. In case of
 
 
 SOLUTION: 
-
-
 WITH FIRST_CTE AS (
-    SELECT U.user_id as id, U.name as user_name, count(M.rating) as highest_rating_number
-    FROM Users U
-    JOIN MovieRating M
-    ON U.user_id = M.user_id 
-    GROUP BY 1,2
-    ORDER BY highest_rating_number DESC,U.name ASC
+    SELECT U.name, COUNT(*) AS counts
+    FROM MovieRating M
+    JOIN Users U
+    ON U.user_id = M.user_id
+    GROUP BY U.user_id, U.name
+    ORDER BY counts DESC, U.name ASC
     LIMIT 1
 ), 
 
 SECOND_CTE AS (
-    SELECT M.movie_id as movie_id, M.title as title, AVG(N.rating) as average_rating 
-    FROM Movies M
-    JOIN MovieRating N
-    ON M.movie_id = N.movie_id 
-    WHERE N.created_at BETWEEN '2020-02-01' AND '2020-02-29'
-    GROUP BY 1, 2
-    ORDER BY average_rating DESC, M.title ASC
+    SELECT M.title, AVG(MM.rating) as average 
+    FROM MovieRating MM 
+    JOIN Movies M 
+    ON M.movie_id = MM.movie_id
+    WHERE MONTH(MM.created_at) = 2 AND YEAR(MM.created_at) = 2020
+    GROUP BY 1
+    ORDER BY 2 DESC, 1 ASC
     LIMIT 1
 )
 
-
-SELECT user_name as results FROM FIRST_CTE
-UNION ALL
-SELECT title FROM SECOND_CTE ; 
-
-
-
+SELECT name as results FROM FIRST_CTE  
+UNION ALL 
+SELECT title as results FROM SECOND_CTE; 
