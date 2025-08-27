@@ -17,16 +17,18 @@ Return the result table ordered by visited_on in ascending order.
 '''
 
 SOLUTION: 
-
-
-WITH FIRST_CTE AS (SELECT visited_on, SUM(amount) as total
-                    FROM Customer
-                    GROUP BY 1
-                    ORDER BY 1)
-
-SELECT visited_on, 
-SUM(total) OVER(ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) as amount, 
-ROUND(avg(total) OVER(ROWS BETWEEN 6 PRECEDING AND CURRENT ROW),2) as average_amount
+WITH FIRST_CTE AS (
+  SELECT visited_on, SUM(amount) AS total
+  FROM Customer
+  GROUP BY visited_on
+)
+SELECT
+  visited_on,
+  SUM(total) OVER w AS amount,
+  ROUND(SUM(total) OVER w / 7, 2) AS average_amount
 FROM FIRST_CTE
-OFFSET 6 
-; 
+WINDOW w AS (
+  ORDER BY visited_on
+  RANGE BETWEEN INTERVAL 6 DAY PRECEDING AND CURRENT ROW
+)
+LIMIT 6, 999;
