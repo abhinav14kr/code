@@ -38,13 +38,12 @@ ORDER BY COUNT(id) DESC
 LIMIT 1 ; 
 
 -- alternate solution for this 
-
 SELECT id, COUNT(*) as num
 FROM (
-    SELECT requester_id as id from RequestAccepted
-    UNION ALL 
-    SELECT accepter_id as id from RequestAccepted
+    SELECT requester_id AS id FROM RequestAccepted WHERE requester_id <> accepter_id
+    UNION ALL
+    SELECT accepter_id  AS id FROM RequestAccepted WHERE requester_id <> accepter_id
 ) as ends   
 GROUP BY 1
-ORDER BY counts DESC
+ORDER BY num DESC
 LIMIT 1; 
