@@ -37,3 +37,14 @@ GROUP BY 1
 ORDER BY COUNT(id) DESC 
 LIMIT 1 ; 
 
+-- alternate solution for this 
+
+SELECT id, COUNT(*) as num
+FROM (
+    SELECT requester_id as id from RequestAccepted
+    UNION ALL 
+    SELECT accepter_id as id from RequestAccepted
+) as ends   
+GROUP BY 1
+ORDER BY counts DESC
+LIMIT 1; 
