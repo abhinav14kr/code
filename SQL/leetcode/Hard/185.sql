@@ -23,15 +23,13 @@ SOLUTION:
 
 -- Write your PostgreSQL query statement below
 WITH FIRST_CTE AS (
-    SELECT d.name as Department, 
-           e.name as Employee, 
-           e.salary as Salary, 
-           DENSE_RANK () OVER (PARTITION BY e.departmentId ORDER BY e.salary DESC) as ranked
-    FROM Employee e
-    JOIN Department d
-    ON e.departmentId = d.id
-    )
+    SELECT d.name as Department, e.name, e.salary, DENSE_RANK () OVER (PARTITION BY e.departmentId ORDER BY e.salary DESC) as RANKED
+    FROM Employee e 
+    JOIN Department d 
+    ON e.departmentId = d.id 
+)
 
-SELECT Department, Employee, Salary 
+SELECT Department, name as Employee , salary as Salary
 FROM FIRST_CTE 
-WHERE ranked <= 3; 
+WHERE RANKED <= 3
+ORDER BY salary DESC, name ASC; 
