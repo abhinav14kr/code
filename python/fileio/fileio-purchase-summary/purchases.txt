@@ -1,0 +1,6 @@
+Alice,Laptop,1200
+Bob,Mouse,25
+Alice,Keyboard,100
+Charlie,Monitor,300
+Bob,Tablet,500
+Alice,Notebook,5
