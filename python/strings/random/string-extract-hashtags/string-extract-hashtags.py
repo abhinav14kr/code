@@ -9,7 +9,7 @@ def extract_hashtags(text):
     unique_hashtags = sorted(set(hashtags))
 
     # Save to file
-    with open('hashtags.txt', 'w') as f:
+    with open('mentions.txt', 'w') as f:
         for tag in unique_hashtags:
             f.write(tag + '\n')
 
