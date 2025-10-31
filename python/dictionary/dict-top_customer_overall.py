@@ -1,4 +1,5 @@
 purchases = [
+    
     ("Alice", "Laptop", "Electronics", 1200),
     ("Alice", "Mouse", "Electronics", 25),
     ("Bob", "Tablet", "Electronics", 300),
