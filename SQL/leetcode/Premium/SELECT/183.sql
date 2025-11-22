@@ -1,47 +1,23 @@
-# 183. Customers Who Never Order
+-- 183. Customers Who Never Order
+-- Difficulty: Easy
+-- Tag: SQL
 
-**Difficulty:** Easy
-**Tag:** SQL
+-- Table: Customers
+-- id (primary key)
+-- name
 
----
+-- Table: Orders
+-- id (primary key)
+-- customerId (foreign key referencing Customers.id)
 
-## Problem Description
+-- Task:
+-- Find all customers who never placed an order.
+-- Return results in any order.
 
-**Table: Customers**
-
-| Column Name | Type    |
-| ----------- | ------- |
-| id          | int     |
-| name        | varchar |
-
-* `id` is the primary key.
-* Each row represents a customer.
-
-**Table: Orders**
-
-| Column Name | Type |
-| ----------- | ---- |
-| id          | int  |
-| customerId  | int  |
-
-* `id` is the primary key.
-* `customerId` is a foreign key referencing `Customers.id`.
-
----
-
-## Task
-
-Find all customers who **never placed an order**.
-Return the result table in any order.
-
----
-
-## SQL Solution (Untweaked)
-
-```sql
-SELECT name AS 'Customers'
+-- MySQL Query
+SELECT 
+    c.name AS Customers
 FROM Customers c
 LEFT JOIN Orders o 
-ON c.Id = o.CustomerId
-WHERE o.CustomerId IS NULL;
-```
+    ON c.id = o.customerId
+WHERE o.customerId IS NULL;
